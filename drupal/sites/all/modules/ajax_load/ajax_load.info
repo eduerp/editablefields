@@ -1,0 +1,11 @@
+; $Id: ajax_load.info,v 1.1 2008/04/05 00:41:50 nedjo Exp $
+name = Ajax Load
+description = Helper module to load and add JavasScript and CSS data for Ajax-loaded content.
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-04-21
+version = "6.x-1.2"
+core = "6.x"
+project = "ajax_load"
+datestamp = "1240346712"
+

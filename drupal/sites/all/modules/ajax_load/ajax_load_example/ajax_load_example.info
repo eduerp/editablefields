@@ -1,0 +1,12 @@
+; $Id: ajax_load_example.info,v 1.1 2008/12/17 20:01:54 nedjo Exp $
+name = Ajax load example
+description = Example module to demonstrate Ajax load functionality.
+dependencies[] = ajax_load
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-04-21
+version = "6.x-1.2"
+core = "6.x"
+project = "ajax_load"
+datestamp = "1240346712"
+
