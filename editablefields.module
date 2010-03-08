@@ -235,7 +235,6 @@ function editablefields_submit() {
     $form_state = array('values' => $_POST);
 
     if (is_array($node->{$field_name})) {
-[[[
       // ALAN 201003307...
       // Determine if the value posted is in the allowed range for this course
 
@@ -258,57 +257,65 @@ function editablefields_submit() {
           ORDER BY cgw.course_id DESC";  // Select the course specific one (if any) first followed by the default one
         $weightings = db_query($sql, $coursecode);
         $row = db_fetch_object($weightings);
-        $repeatbycinid[$course_instance_nid]['number_of_ca']      = $row->number_of_ca;
-        $repeatbycinid[$course_instance_nid]['cgw.max_mark_ca1']  = $row->cgw.max_mark_ca1;
-        $repeatbycinid[$course_instance_nid]['cgw.max_mark_ca2']  = $row->cgw.max_mark_ca2;
-        $repeatbycinid[$course_instance_nid]['cgw.max_mark_ca3']  = $row->cgw.max_mark_ca3;
-        $repeatbycinid[$course_instance_nid]['cgw.max_mark_ca4']  = $row->cgw.max_mark_ca4;
-        $repeatbycinid[$course_instance_nid]['cgw.max_mark_exam'] = $row->cgw.max_mark_exam;
+        $repeatbycinid[$course_instance_nid]['number_of_ca']  = $row->number_of_ca;
+        $repeatbycinid[$course_instance_nid]['max_mark_ca1']  = $row->max_mark_ca1;
+        $repeatbycinid[$course_instance_nid]['max_mark_ca2']  = $row->max_mark_ca2;
+        $repeatbycinid[$course_instance_nid]['max_mark_ca3']  = $row->max_mark_ca3;
+        $repeatbycinid[$course_instance_nid]['max_mark_ca4']  = $row->max_mark_ca4;
+        $repeatbycinid[$course_instance_nid]['max_mark_exam'] = $row->max_mark_exam;
       }
+
+      $number_of_ca = $repeatbycinid[$course_instance_nid]['number_of_ca'];
+      if ($repeat) $number_of_ca = 0;  // Repeat exams have no CA
+
+      $message = "$gradetext may not be marked for this course.";
+      if ($repeat) $message = "No Continuous Assessments may be marked for a repeat exam.";
+
+      $max = -1;
 
       if     ($form_state['values'][$field_name] == 'field_ca1') {
+        $gradetext = 'Continuous Assessment 1';
+        if ($number_of_ca < 1) drupal_set_message($message, 'error');
+        else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca1'];
       }
       elseif ($form_state['values'][$field_name] == 'field_ca2') {
+        $gradetext = 'Continuous Assessment 2';
+        if ($number_of_ca < 2) drupal_set_message($message, 'error');
+        else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca2'];
       }
       elseif ($form_state['values'][$field_name] == 'field_ca3') {
+        $gradetext = 'Continuous Assessment 3';
+        if ($number_of_ca < 3) drupal_set_message($message, 'error');
+        else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca3'];
       }
       elseif ($form_state['values'][$field_name] == 'field_ca4') {
+        $gradetext = 'Continuous Assessment 4';
+        if ($number_of_ca < 4) drupal_set_message($message, 'error');
+        else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca4'];
       }
       elseif ($form_state['values'][$field_name] == 'field_exam_score') {
+        $gradetext = 'Exam';
+        $max = $repeatbycinid[$course_instance_nid]['max_mark_exam'];
+        if ($repeat) $max = 100;  // For a repeat, all the marks are allocated to the exam
       }
 
-
-
-
-do check max_mark_ca1 against $form_state['values'][$field_name][0]['value']
-
-number of ca use
-and range = 100 for exam
-and no CA
-
-
-$message = "Continuous spelling Assesment1 mark must be between 0 and [max_mark_ca1] inclusive."
-you are not allowed set CA1 for a repeat exam.
-
-
-drupal_set_message($message, 'error');
-
-
-
+      if ($max > -1) {
+        $messagemax = "$gradetext mark must be between 0 and $max inclusive.";
+        if ($form_state['values'][$field_name][0]['value'] > $max) drupal_set_message($messagemax, 'error');
+      }
 
       $err = drupal_get_messages();
-
-
+      if (count($err) > 0) {
         drupal_set_header('HTTP/1.1 404 Not Found');
 
-        foreach ($err as $type=>$messages) {
+        foreach ($err as $type => $messages) {
           foreach ($messages as $message) {
-            print $type .' : '. $message ."\n";
+            print $type . ' : ' . $message ."\n";
           }
         }
         exit();
+      }
       // END ALAN
-]]]
 
       drupal_execute('editablefields_form', $form_state, $node, $field_name, $delta);
 
