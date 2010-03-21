@@ -351,9 +351,27 @@ function editablefields_submit() {
 
       $content = new stdClass();
       $content->totalscoreid = 'idcomputed-field_total_score-' . $node->nid;
-      $content->totalscorevalue = grade_total($node->field_exam_score[0]['value'], $node->field_ca1[0]['value'], $node->field_ca2[0]['value'], $node->field_ca3[0]['value'], $node->field_ca4[0]['value'], $node->field_mat_no[0]['uid'], $node->field_course_instance[0]['nid'], $field_name);
+      $content->totalscorevalue = grade_total(
+        $node->field_exam_score[0]['value'],
+        $node->field_ca1[0]['value'],
+        $node->field_ca2[0]['value'],
+        $node->field_ca3[0]['value'],
+        $node->field_ca4[0]['value'],
+        $node->field_mat_no[0]['uid'],
+        $node->field_course_instance[0]['nid'],
+        $node->field_examscorelocked[0]['value'],
+        $field_name);
       $content->gradeid = 'idcomputed-field_grade-' . $node->nid;
-      $content->gradevalue = grade_grade($node->field_exam_score[0]['value'], $node->field_ca1[0]['value'], $node->field_ca2[0]['value'], $node->field_ca3[0]['value'], $node->field_ca4[0]['value'], $node->field_mat_no[0]['uid'], $node->field_course_instance[0]['nid'], $field_name);
+      $content->gradevalue = grade_grade(
+        $node->field_exam_score[0]['value'],
+        $node->field_ca1[0]['value'],
+        $node->field_ca2[0]['value'],
+        $node->field_ca3[0]['value'],
+        $node->field_ca4[0]['value'],
+        $node->field_mat_no[0]['uid'],
+        $node->field_course_instance[0]['nid'],
+        $node->field_examscorelocked[0]['value'],
+        $field_name);
 
       drupal_json($content);
       // END ALAN
