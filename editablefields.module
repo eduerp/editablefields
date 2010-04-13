@@ -360,6 +360,7 @@ function editablefields_submit() {
         $node->field_mat_no[0]['uid'],
         $node->field_course_instance[0]['nid'],
         $node->field_examscorelocked[0]['value'],
+        $node->field_calc_type[0]['value'],
         $field_name);
       $content->gradeid = 'idcomputed-field_grade-' . $node->nid;
       $content->gradevalue = grade_grade(
@@ -371,6 +372,7 @@ function editablefields_submit() {
         $node->field_mat_no[0]['uid'],
         $node->field_course_instance[0]['nid'],
         $node->field_examscorelocked[0]['value'],
+        $node->field_calc_type[0]['value'],
         $field_name);
 
       drupal_json($content);
