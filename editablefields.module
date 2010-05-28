@@ -265,7 +265,7 @@ error_log($course_instance_nid);
         $repeatbycinid[$course_instance_nid]['max_mark_ca4']  = $row->max_mark_ca4;
         $repeatbycinid[$course_instance_nid]['max_mark_exam'] = $row->max_mark_exam;
       }
-error_log(
+error_log($field_name . ':' .
         $repeatbycinid[$course_instance_nid]['repeat'] . ':' .
         $repeatbycinid[$course_instance_nid]['number_of_ca'] . ':' .
         $repeatbycinid[$course_instance_nid]['max_mark_ca1'] . ':' .
@@ -314,7 +314,7 @@ error_log(
         $messagemax = "$gradetext mark must be between 0 and $max inclusive.";
         if ($form_state['values'][$field_name][0]['value'] > $max) drupal_set_message($messagemax, 'error');
       }
-error_log($form_state['values'][$field_name] . $max . ';');
+error_log($form_state['values'][$field_name][0]['value'] . $max . ';');
 
       $err = drupal_get_messages();
       if (count($err) > 0) {
