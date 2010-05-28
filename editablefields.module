@@ -241,7 +241,7 @@ function editablefields_submit() {
       static $repeatbycinid = array(); // Cache
 
       $course_instance_nid = $node->field_course_instance[0]['nid'];
-error_log($course_instance_nid);
+
       if (!isset($repeatbycinid[$course_instance_nid])) {
         $sql = "SELECT field_repeat_value FROM {content_type_course_instance} WHERE nid={$course_instance_nid} LIMIT 1";
         $repeats = db_query($sql);
@@ -265,20 +265,6 @@ error_log($course_instance_nid);
         $repeatbycinid[$course_instance_nid]['max_mark_ca4']  = $row->max_mark_ca4;
         $repeatbycinid[$course_instance_nid]['max_mark_exam'] = $row->max_mark_exam;
       }
-error_log($field_name . ':' .
-        $repeatbycinid[$course_instance_nid]['repeat'] . ':' .
-        $repeatbycinid[$course_instance_nid]['number_of_ca'] . ':' .
-        $repeatbycinid[$course_instance_nid]['max_mark_ca1'] . ':' .
-        $repeatbycinid[$course_instance_nid]['max_mark_ca2'] . ':' .
-        $repeatbycinid[$course_instance_nid]['max_mark_ca3'] . ':' .
-        $repeatbycinid[$course_instance_nid]['max_mark_ca4'] . ':' .
-        $repeatbycinid[$course_instance_nid]['max_mark_exam']
-);
-!!!!!!!!!!!!!!!!!
-[Fri May 28 17:15:58 2010] [error] [client 109.255.73.253] field_ca1:0:4:10:10:10:10:60, referer: http://staging.datasphir.com/course
-[Fri May 28 17:15:58 2010] [error] [client 109.255.73.253] 12-1;, referer: http://staging.datasphir.com/course
-
-
 
       $repeat = $repeatbycinid[$course_instance_nid]['repeat'];
       $number_of_ca = $repeatbycinid[$course_instance_nid]['number_of_ca'];
@@ -319,7 +305,7 @@ error_log($field_name . ':' .
         $messagemax = "$gradetext mark must be between 0 and $max inclusive.";
         if ($form_state['values'][$field_name][0]['value'] > $max) drupal_set_message($messagemax, 'error');
       }
-error_log($form_state['values'][$field_name][0]['value'] . $max . ';');
+error_log($field_name . $form_state['values'][$field_name][0]['value'] . $max . ';');
 
       $err = drupal_get_messages();
       if (count($err) > 0) {
