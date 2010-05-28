@@ -274,6 +274,11 @@ error_log($field_name . ':' .
         $repeatbycinid[$course_instance_nid]['max_mark_ca4'] . ':' .
         $repeatbycinid[$course_instance_nid]['max_mark_exam']
 );
+!!!!!!!!!!!!!!!!!
+[Fri May 28 17:15:58 2010] [error] [client 109.255.73.253] field_ca1:0:4:10:10:10:10:60, referer: http://staging.datasphir.com/course
+[Fri May 28 17:15:58 2010] [error] [client 109.255.73.253] 12-1;, referer: http://staging.datasphir.com/course
+
+
 
       $repeat = $repeatbycinid[$course_instance_nid]['repeat'];
       $number_of_ca = $repeatbycinid[$course_instance_nid]['number_of_ca'];
@@ -284,27 +289,27 @@ error_log($field_name . ':' .
 
       $max = -1;
 
-      if     ($form_state['values'][$field_name] == 'field_ca1') {
+      if     ($field_name === 'field_ca1') {
         $gradetext = 'Continuous Assessment 1';
         if ($number_of_ca < 1) drupal_set_message($message, 'error');
         else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca1'];
       }
-      elseif ($form_state['values'][$field_name] == 'field_ca2') {
+      elseif ($field_name === 'field_ca2') {
         $gradetext = 'Continuous Assessment 2';
         if ($number_of_ca < 2) drupal_set_message($message, 'error');
         else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca2'];
       }
-      elseif ($form_state['values'][$field_name] == 'field_ca3') {
+      elseif ($field_name === 'field_ca3') {
         $gradetext = 'Continuous Assessment 3';
         if ($number_of_ca < 3) drupal_set_message($message, 'error');
         else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca3'];
       }
-      elseif ($form_state['values'][$field_name] == 'field_ca4') {
+      elseif ($field_name === 'field_ca4') {
         $gradetext = 'Continuous Assessment 4';
         if ($number_of_ca < 4) drupal_set_message($message, 'error');
         else $max = $repeatbycinid[$course_instance_nid]['max_mark_ca4'];
       }
-      elseif ($form_state['values'][$field_name] == 'field_exam_score') {
+      elseif ($field_name === 'field_exam_score') {
         $gradetext = 'Exam';
         $max = $repeatbycinid[$course_instance_nid]['max_mark_exam'];
         if ($repeat) $max = 100;  // For a repeat, all the marks are allocated to the exam
