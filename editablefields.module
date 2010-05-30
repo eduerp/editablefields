@@ -224,12 +224,46 @@ function editablefields_submit() {
   $field_name = $_POST['field'];
   $delta=$_POST['delta'];
 
-        $sql = "SELECT field_calc_type_value FROM content_type_student_grades WHERE nid=4778";
-        $repeats = db_query($sql);
-        $repeat = db_fetch_object($repeats);
-error_log('field_calc_type_value' . $repeat->field_calc_type_value);
-
   $node = node_load($nid);
+
+error_log('nid (4778?)' . $nid);
+
+  $hacks = db_query(SELECT * FROM {content_type_student_grades} WHERE nid=$nid);
+  if ($hack = db_fetch_object($hacks)) {
+error_log('found');
+error_log('field_calc_type_value' . $hack->field_calc_type_value);
+
+// Some of the integer values seem to be lost when the node is loaded, maybe an editablefields bug, no idea why...
+// ... This hack just resets them!
+    $node->field_mat_no[0]['uid']                  = $hack->field_mat_no_uid;
+    $node->field_course_instance[0]['nid']         = $hack->field_course_instance_nid;
+    $node->field_student_gpa[0]['nid']             = $hack->field_student_gpa_nid;
+    $node->field_ca1[0]['value']                   = $hack->field_ca1_value;
+    $node->field_ca1forstudent[0]['value']         = $hack->field_ca1forstudent_value;
+    $node->field_ca1locked[0]['value']             = $hack->field_ca1locked_value;
+    $node->field_ca2[0]['value']                   = $hack->field_ca2_value;
+    $node->field_ca2forstudent[0]['value']         = $hack->field_ca2forstudent_value;
+    $node->field_ca2locked[0]['value']             = $hack->field_ca2locked_value;
+    $node->field_ca3[0]['value']                   = $hack->field_ca3_value;
+    $node->field_ca3forstudent[0]['value']         = $hack->field_ca3forstudent_value;
+    $node->field_ca3locked[0]['value']             = $hack->field_ca3locked_value;
+    $node->field_ca4[0]['value']                   = $hack->field_ca4_value;
+    $node->field_ca4forstudent[0]['value']         = $hack->field_ca4forstudent_value;
+    $node->field_ca4locked[0]['value']             = $hack->field_ca4locked_value;
+    $node->field_exam_score[0]['value']            = $hack->field_exam_score_value;
+    $node->field_examscoreforstudent[0]['value']   = $hack->field_examscoreforstudent_value;
+    $node->field_examscorelocked[0]['value']       = $hack->field_examscorelocked_value;
+    $node->field_total_score[0]['value']           = $hack->field_total_score_value;
+    $node->field_totalscoreforstudent[0]['value']  = $hack->field_totalscoreforstudent_value;
+    $node->field_grade[0]['value']                 = $hack->field_grade_value;
+    $node->field_gradeforstudent[0]['value']       = $hack->field_gradeforstudent_value;
+    $node->field_gradepoint[0]['value']            = $hack->field_gradepoint_value;
+    $node->field_gradepointforstudent[0]['value']  = $hack->field_gradepointforstudent_value;
+    $node->field_dropped[0]['value']               = $hack->field_dropped_value;
+    $node->field_calc_type[0]['value']             = $hack->field_calc_type_value;
+    $node->field_comment_grades[0]['value']        = $hack->field_comment_grades_value;
+  }
+
 error_log($field_name . var_export($node, TRUE));
 
   if (node_access('update', $node)) {
