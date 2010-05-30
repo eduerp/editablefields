@@ -224,6 +224,11 @@ function editablefields_submit() {
   $field_name = $_POST['field'];
   $delta=$_POST['delta'];
 
+        $sql = "SELECT field_calc_type_value FROM content_type_student_grades WHERE nid=4778";
+        $repeats = db_query($sql);
+        $repeat = db_fetch_object($repeats);
+error_log('field_calc_type_value' . $repeat->field_calc_type_value);
+
   $node = node_load($nid);
 error_log($field_name . var_export($node, TRUE));
 
