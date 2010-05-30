@@ -228,7 +228,7 @@ function editablefields_submit() {
 
 error_log('nid (4778?)' . $nid);
 
-  $hacks = db_query(SELECT * FROM {content_type_student_grades} WHERE nid=$nid);
+  $hacks = db_query("SELECT * FROM {content_type_student_grades} WHERE nid=$nid");
   if ($hack = db_fetch_object($hacks)) {
 error_log('found');
 error_log('field_calc_type_value' . $hack->field_calc_type_value);
