@@ -319,8 +319,9 @@ function editablefields_submit() {
       }
       // END ALAN
 
+error_log($field_name . var_export($node, TRUE));
       drupal_execute('editablefields_form', $form_state, $node, $field_name, $delta);
-
+error_log($field_name . var_export($node, TRUE));
       $err=drupal_get_messages();
       if (count($err)>0) {
         drupal_set_header('HTTP/1.1 404 Not Found');
@@ -345,6 +346,8 @@ function editablefields_submit() {
           node_save($node);
         }
       }
+error_log($field_name . var_export($node, TRUE));
+
       // ALAN 20090730...
       // Removed... // make sure sensible headers etc are sent...
       // Removed... drupal_set_header('Content-Type: text; charset=utf-8');
