@@ -225,6 +225,7 @@ function editablefields_submit() {
   $delta=$_POST['delta'];
 
   $node = node_load($nid);
+error_log($field_name . var_export($node, TRUE));
 
   if (node_access('update', $node)) {
 
