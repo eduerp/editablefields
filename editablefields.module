@@ -318,7 +318,7 @@ function editablefields_submit() {
         exit();
       }
       // END ALAN
-
+error_log($node->field_exam_score[0]['value'] . ':' . $node->examscorelocked[0]['value'] . $form_state['values'][$field_name][0]['value'] . ';' . $form_state['values']['fieldexamscorelocked'][0]['value']);
       drupal_execute('editablefields_form', $form_state, $node, $field_name, $delta);
 
       $err=drupal_get_messages();
