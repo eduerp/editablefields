@@ -232,6 +232,8 @@ function editablefields_submit() {
 
     // Some of the integer values seem to be lost when the node is loaded, maybe a Drupal/editablefields bug, no idea why...
     // ... This hack just resets them!
+    // 20100811... It was probably caused because the content cache was not cleared when SQL changes were made to content. This has now been fixed.
+    // I will not take out the hack as much re-testing would be required.
     $node->field_mat_no[0]['uid']                  = $hack->field_mat_no_uid;
     $node->field_course_instance[0]['nid']         = $hack->field_course_instance_nid;
     $node->field_student_gpa[0]['nid']             = $hack->field_student_gpa_nid;
