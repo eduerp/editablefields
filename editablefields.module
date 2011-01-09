@@ -260,6 +260,7 @@ function editablefields_submit() {
     $node->field_gradepointforstudent[0]['value']  = $hack->field_gradepointforstudent_value;
     $node->field_dropped[0]['value']               = $hack->field_dropped_value;
     $node->field_calc_type[0]['value']             = $hack->field_calc_type_value;
+    $node->field_credit_load_sg[0]['value']        = $hack->field_credit_load_sg_value;
     $node->field_comment_grades[0]['value']        = $hack->field_comment_grades_value;
   }
   // END ALAN
