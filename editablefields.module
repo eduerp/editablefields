@@ -389,7 +389,7 @@ function editablefields_submit() {
       // Removed... // make sure sensible headers etc are sent...
       // Removed... drupal_set_header('Content-Type: text; charset=utf-8');
 
-      require_once './' . drupal_get_path('module', 'veritas') . '/grading/computed.inc';
+      require_once './' . drupal_get_path('module', 'eduerp') . '/grading/computed.inc';
 
       $content = new stdClass();
       $content->totalscoreid = 'idcomputed-field_total_score-' . $node->nid;
