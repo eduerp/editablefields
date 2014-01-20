@@ -9,11 +9,11 @@ Drupal.behaviors.editablefields = function(context) {
      $(this).prepend(Drupal.settings.editablefields.clicktoedit_message);
      $(this).click(Drupal.editablefields.init);
   });
-  $('div.editablefields',context).not(',editablefields-processed').submit(function(){
+  $('div.editablefields',context).not('.editablefields-processed').submit(function(){
      return false;
   });
 }
-  
+
 
 Drupal.editablefields = {};
 
@@ -23,14 +23,14 @@ Drupal.editablefields.init = function() {
   $(this).children().hide();
   Drupal.editablefields.load(this);
 }
-  
+
 Drupal.editablefields.load = function(element) {
 
   if ($(element).hasClass("editablefields_REMOVE") ) {
     $(element).hide();
   } else {
     $(element).addClass('editablefields_throbber');
-    
+
     var url = Drupal.settings.editablefields.url_html + "/" + $(element).attr("nid") + "/" + $(element).attr("field")+ "/" + $(element).attr("delta");
     $.ajax({
       url: url,
@@ -69,7 +69,7 @@ Drupal.editablefields.onchange = function(element) {
   // Send the field form.
   $.ajax({
      type: "POST",
-     url: Drupal.settings.editablefields.url_submit, 
+     url: Drupal.settings.editablefields.url_submit,
      data: $(element).find('form').serialize() + "&nid=" + $(element).attr("nid") + "&field=" + $(element).attr("field")+ "&delta=" + $(element).attr("delta"),
      element: $(element),
      success: function(response) {
@@ -92,7 +92,7 @@ Drupal.editablefields.onchange = function(element) {
      dataType: 'json'
      // END ALAN
     });
-  
+
   // Ensure same changes are not submitted more than once.
   $(element).find(':input').each(function() {
     $(this).attr("disabled", true);
